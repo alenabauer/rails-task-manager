@@ -1,0 +1,13 @@
+<h1>My Tasks</h1>
+<ul>
+  <% @tasks.each do |task| %>
+    <li style="list-style-type: none;">
+      <%= form_for task, method: 'patch', url: "tasks/#{task.id}/complete", :html => { :style => 'display:inline-block;' } do |task| %>
+        <%= task.check_box :completed, onchange: "this.form.submit();" %>
+      <% end %>
+      <%= link_to task.title, task_path(task.id) %>
+      <%= link_to '✖', task_path(task), method: 'delete', data: { confirm: 'Are you sure?' }, class: 'btn-delete' %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to '+ Add a new task', new_path, class: 'btn-add' %>
